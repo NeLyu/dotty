@@ -64,51 +64,45 @@ def store_previous_position():
 
 # Function to handle commands
 def handle_command(command):
-    global rect_x, rect_y, rect_color, command_executed, is_jumping, jump_start_time, jump_direction, jump_start_x, jump_start_y, blink_active, blink_start_time
+    global rect_x, rect_y, rect_color, \
+        command_executed, is_jumping, jump_start_time, \
+        jump_direction, jump_start_x, jump_start_y, \
+        blink_active, blink_start_time
 
     command_executed = False  # Reset state
     
     # Store the position before any movement
-    if command in ['move_left', 'move_right', 'jump_left', 'jump_right', 'jump']:
+    if command in ['move_left', 'move_right', 
+                   'jump_left', 'jump_up', 
+                   'jump_right', 'jump', 
+                   'move_up', 'move_down']:
         store_previous_position()
         
     # Simple commands to move or change color
     if command == 'move_left':
         rect_x -= speed
-        command_executed = True
     elif command == 'move_right':
         rect_x += speed
-        command_executed = True
     elif command == 'move_up' or command == 'jump_up':
         rect_y -= speed
-        command_executed = True
     elif command == 'move_down':
         rect_y += speed
-        command_executed = True
     elif command == 'move':
         blink_active = True
         blink_start_time = time.time()
-        command_executed = True
     elif command == 'color':
         rect_color = (random.randint(10, 225), random.randint(10, 200), random.randint(10, 225))
-        command_executed = True
     elif command == 'red':
         rect_color = RED
-        command_executed = True
     elif command == 'blue':
         rect_color = BLUE
-        command_executed = True
     elif command == 'green':
         rect_color = GREEN
-        command_executed = True
     elif command == 'yellow':
         rect_color = YELLOW
-        command_executed = True
     elif command == 'move_back' or command == 'jump_back':  # Go back to the previous position
         if previous_positions:
             rect_x, rect_y = previous_positions.pop()  # Restore the last stored position
-        command_executed = True
-
     elif command == 'jump_left':
         if not is_jumping:  # Only start the jump if not already jumping
             is_jumping = True
@@ -116,8 +110,6 @@ def handle_command(command):
             jump_direction = 'left'
             jump_start_x = rect_x
             jump_start_y = rect_y
-        command_executed = True
-
     elif command == 'jump_right':
         if not is_jumping:  # Only start the jump if not already jumping
             is_jumping = True
@@ -125,8 +117,6 @@ def handle_command(command):
             jump_direction = 'right'
             jump_start_x = rect_x
             jump_start_y = rect_y
-        command_executed = True
-        
     elif command == 'jump':
         if not is_jumping:  # Only start a new jump if not already jumping
             is_jumping = True
@@ -134,15 +124,13 @@ def handle_command(command):
             jump_direction = None  # Simple vertical jump, no direction
             jump_start_x = rect_x
             jump_start_y = rect_y
-        command_executed = True
-
     elif command == 'idk':
-        command_executed = True
+        pass
         
     elif command == 'reset':
         rect_x = 100  # Reset position
         rect_color = BLUE  # Reset color
-        command_executed = True
+    command_executed = True
 
 # Main loop
 running = True
