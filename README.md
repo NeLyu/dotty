@@ -8,8 +8,13 @@ Dotty is an interactive tool for kids. Its main character is a little circle tha
 
 In order to use Dotty you need to have the following packages installed:
 ```
-spacy, pygame, transformers
+spacy, pygame, transformers, torch
 ```
+You also need to download a model from SpaCy
+```
+python -m spacy download en_core_web_lg
+```
+
 I used the following versions of these packages on my computer:
 
 ```
